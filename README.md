@@ -1,2 +1,2 @@
-# play2learn_vue
+# Play2Learn (Vue)
 
