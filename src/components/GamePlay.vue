@@ -60,6 +60,7 @@
     </transition>
   </div>
 </template>
+
 <script>
 import GameScore from './GameScore';
 import GameTimer from './GameTimer';

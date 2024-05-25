@@ -16,7 +16,7 @@
           </li>
         </ul>
       </div>
-      <a class="navbar-brand" href="/">Mathificent</a>
+      <a class="navbar-brand" href="/">Play2Learn - Vue</a>
     </nav>
   </header>
 </template>

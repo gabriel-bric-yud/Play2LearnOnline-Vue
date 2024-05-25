@@ -25,4 +25,7 @@ footer,
 header {
   background-color: #3f7cad;
 }
+#app {
+  overflow-x: hidden;
+}
 </style>

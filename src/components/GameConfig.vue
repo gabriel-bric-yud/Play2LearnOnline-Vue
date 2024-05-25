@@ -1,6 +1,6 @@
 <template>
   <div id="config-container">
-    <h1>Mathificent</h1>
+    <h1>Math Facts Practice</h1>
     <SelectInput
       :currentValue="operation"
       label="Operation"
