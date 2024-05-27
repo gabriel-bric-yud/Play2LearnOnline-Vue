@@ -17,6 +17,11 @@ export default {
 <style scoped>
 #main-container {
   margin: auto;
+  justify-content: center; 
+}
+
+main div {
+  max-width: 97vw;
 }
 
 </style>

@@ -2,7 +2,7 @@
   <div id="game-container" class="text-center">
     <GameHeader text = "Math Facts Practice" fontSize = "2.5rem" />
     <LabelComp :text = "this.operationName" fontSize = "2rem" />
-    <transition name="slide">
+    <transition name = "fade">
       <template v-if="timeLeft === 0">
         <div>
           <h2>Time's Up!</h2>
@@ -32,7 +32,7 @@
         </div>
       </template>
     </transition>
-    <transition name="slide">
+    <transition name = "fade">
       <template v-if="timeLeft > 0">
         <div>
           <div class="row border-bottom" id="scoreboard">
@@ -242,9 +242,11 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 #game-container {
   width: 380px;
+  max-width: 90vw;
 }
 
 button.number-button {
@@ -279,39 +281,13 @@ button.number-button {
   font-size: 5em;
 }
 
-.slide-leave-active,
-.slide-enter-active {
-  position: absolute;
-  top: 253px;
-  transition: 1s;
-  width: 380px;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.slide-enter-from {
-  transform: translate(-100%, 0);
-  transition: opacity 0.5s;
-}
-
-.slide-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: translate(100%, 0);
-}
-
-.slide-right-leave-active,
-.slide-right-enter-active {
-  position: absolute;
-  top: 253px;
-  transition: 1s;
-  width: 380px;
-}
-
-.slide-right-enter-from {
-  transform: translate(100%, 0);
-  transition: opacity 0.5s;
-}
-
-.slide-right-leave-to {
-  opacity: 0;
-  transform: translate(-100%, 0);
 }
 </style>

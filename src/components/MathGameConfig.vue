@@ -1,4 +1,4 @@
-<template>
+<template> 
   <div id="config-container" class = "border-info">
     <GameHeader text = "Math Facts Practice" fontSize = "2.5rem" />
     <SelectInput
@@ -64,6 +64,11 @@ export default {
       }
       return numbers;
     },
+
+    show: function() {
+      return true
+    }
   },
 };
 </script>
+
