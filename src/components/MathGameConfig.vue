@@ -1,6 +1,6 @@
 <template>
   <div id="config-container">
-    <h1>Math Facts Practice</h1>
+    <GameHeader text = "Math Facts Practice" fontSize = "2.5rem" />
     <SelectInput
       :currentValue="operation"
       label="Operation"
@@ -27,11 +27,14 @@
 <script>
 import SelectInput from './SelectInput';
 import PlayButton from './PlayButton';
+import GameHeader from './GameHeader.vue';
+
 export default {
   name: 'GameConfig',
   components: {
     SelectInput,
     PlayButton,
+    GameHeader
   },
   data: function () {
     return {

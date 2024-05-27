@@ -1,6 +1,6 @@
 <template>
-  <GameCard title = "Anagram Hunt" redirect = "AnagramHuntConfig" :description = descriptionAnagrams></GameCard>
-  <GameCard title = "Math Facts Practice" redirect = "MathFactsConfig" :description = descriptionMath></GameCard>
+  <GameCard title = "Anagram Hunt" redirect = "AnagramHuntConfig" fontSize = "2rem" :description = descriptionAnagrams></GameCard>
+  <GameCard title = "Math Facts Practice" redirect = "MathFactsConfig" fontSize = "2rem" :description = descriptionMath></GameCard>
 </template>
 
 <script>

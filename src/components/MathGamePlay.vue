@@ -1,5 +1,6 @@
 <template>
   <div id="game-container" class="text-center">
+    <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
     <transition name="slide">
       <template v-if="timeLeft === 0">
         <div>
@@ -22,7 +23,7 @@
         </div>
       </template>
     </transition>
-    <transition name="slide-right">
+    <transition name="slide">
       <template v-if="timeLeft > 0">
         <div>
           <div class="row border-bottom" id="scoreboard">
@@ -65,6 +66,7 @@
 import GameScore from './GameScore';
 import GameTimer from './GameTimer';
 import GameEquation from './GameEquation';
+import GameHeader from './GameHeader.vue';
 import { randInt } from '../helpers/helpers';
 export default {
   name: 'GamePlay',
@@ -72,6 +74,7 @@ export default {
     GameScore,
     GameTimer,
     GameEquation,
+    GameHeader
   },
   data: function () {
     return {
@@ -244,7 +247,7 @@ button.number-button {
 .slide-leave-active,
 .slide-enter-active {
   position: absolute;
-  top: 56px;
+  top: 190px;
   transition: 1s;
   width: 380px;
 }
@@ -262,7 +265,7 @@ button.number-button {
 .slide-right-leave-active,
 .slide-right-enter-active {
   position: absolute;
-  top: 56px;
+  top: 190px;
   transition: 1s;
   width: 380px;
 }

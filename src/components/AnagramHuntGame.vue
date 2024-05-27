@@ -1,32 +1,41 @@
 <template>
-  <div id = "game-container" class = "game-container d-grid ">
+  <div id = "game-container" class = "d-grid">
+    <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
     <transition name="slide">
       <template v-if="timeLeft === 0 || this.gameEnd">
-        <div id = "game-container" class = "d-grid justify-content-center">
+        <div class = "d-grid justify-content-center endscreen">
           <h2 v-if="timeLeft === 0" class = "text-center">Time's Up!</h2>
           <h2 v-else class = "text-center">Anagrams Completed!</h2>
-          <strong class="big text-center">You got</strong>
+          <strong class="big text-center mx-0">You got</strong>
           <div class="huge text-center">{{ score }}</div>
           <strong class="big text-center">Anagrams</strong>
           <button
-            class="btn btn-primary form-control m-1"
+            class="btn btn-primary form-control m-1 w-75 mx-auto"
             v-on:click="restart()"
           >
-            Play Again with Same Settings
+            Play Again
           </button>
-          <button
-            class="btn btn-secondary form-control m-1"
-            v-on:click="config()"
-          >
-            Change Settings
-          </button>
+          <div class = "d-flex flex-fill justify-content-center">
+            <button
+              class="btn btn-secondary form-control m-1 w-50"
+              v-on:click="config()"
+            >
+              Change Settings
+            </button>
+            <button
+              class="btn btn-secondary form-control m-1 w-50 justify-self-end"
+              v-on:click="config()"
+            >
+              Change Game
+            </button>
+          </div>
         </div>
       </template>
     </transition>
-    <transition name="slide-right">
+    <transition name="slide">
       <template v-if="timeLeft > 0">
         <div>
-      
+          
           <div class="row border-bottom d-flex" id="scoreboard">
             <div class="col">
               <GameScore :score="score" />
@@ -64,13 +73,15 @@
 import GameScore from './GameScore.vue';
 import GameTimer from './GameTimer.vue';
 import LabelComp from './LabelComp.vue';
+import GameHeader from './GameHeader.vue';
 
 export default {
   name: 'GamePlay',
   components: {
     GameScore,
     GameTimer,
-    LabelComp
+    LabelComp,
+    GameHeader
   },
   data: function () {
     return {
@@ -228,8 +239,8 @@ export default {
       },
       answered: false,
       score: 0,
-      gameLength: 30,
-      timeLeft: 0,
+      gameLength: 2,
+      timeLeft: -1,
       word: "",
       availableIndexes: [],
       currentAnagramData: {},
@@ -344,26 +355,8 @@ export default {
 </script>
 
 <style scoped>
-#game-container {
+#game-container, .endscreen {
   width: 380px;
-}
-
-button.number-button {
-  border-radius: 0.25em;
-  font-size: 3em;
-  height: 2em;
-  margin: 0.1em;
-  text-align: center;
-  width: 2em;
-}
-
-#clear-button {
-  border-radius: 0.25em;
-  font-size: 3em;
-  height: 2em;
-  margin: 0.1em;
-  text-align: center;
-  width: 4.2em;
 }
 
 #scoreboard {
@@ -381,7 +374,7 @@ button.number-button {
 .slide-leave-active,
 .slide-enter-active {
   position: absolute;
-  top: 56px;
+  top: 190px;
   transition: 1s;
   width: 380px;
 }
@@ -399,7 +392,7 @@ button.number-button {
 .slide-right-leave-active,
 .slide-right-enter-active {
   position: absolute;
-  top: 56px;
+  top: 190px;
   transition: 1s;
   width: 380px;
 }

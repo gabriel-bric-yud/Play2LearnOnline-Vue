@@ -1,6 +1,6 @@
 <template>
   <div id="config-container">
-    <h1>Anagram Hunt</h1>
+    <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
     <SelectInput
       :currentValue= "wordlength"
       label="Word Length"
@@ -19,11 +19,13 @@
 <script>
 import SelectInput from './SelectInput';
 import PlayButton from './PlayButton';
+import GameHeader from './GameHeader.vue';
 export default {
   name: 'GameConfig',
   components: {
     SelectInput,
     PlayButton,
+    GameHeader
   },
   data: function () {
     return {

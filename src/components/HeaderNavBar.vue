@@ -16,7 +16,7 @@
           </li>
         </ul>
       </div>
-      <a class="navbar-brand" href="/">Play2Learn - Vue</a>
+      <a class="navbar-brand" href="/">Final Project Vue - JavaScript Developer (ed2go)</a>
     </nav>
   </header>
 </template>

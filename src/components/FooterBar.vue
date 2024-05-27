@@ -2,7 +2,7 @@
   <footer class="navbar fixed-bottom">
     <div class="container-fluid">
       <a href="https://www.webucator.com" class="text-light nav-link">
-        Copyright &copy; {{ new Date().getFullYear() }} Webucator
+        Gabriel Yudken - {{ new Date().getFullYear() }} 
       </a>
     </div>
   </footer>

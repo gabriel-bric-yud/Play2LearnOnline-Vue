@@ -1,7 +1,7 @@
 <template>
   
   <div class = "gamecard border border-info m-1 d-grid card flex-fill">
-      <LabelComp :text = title :textSize = textSize />
+      <LabelComp :text = title :fontSize = fontSize />
       <p v-for="line in description" :key = "line[0]">{{line[1]}}</p>
       <div class = "card-footer align-self-end mt-2 d-grid">
         <button class = "btn btn-success mx-0" @click = play() >Play now!</button>
@@ -22,7 +22,7 @@ export default {
   props: {
     title: String,
     description: Array,
-    textSize: Number,
+    fontSize: String,
     redirect: String
   },
 
