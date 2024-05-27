@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeaderNavBar />
+    <LabelComp id = "Play2Learn" text = "Play2Learn" fontSize = "2em"></LabelComp>
     <MainContainer />
     <FooterBar />
   </div>
@@ -10,10 +11,12 @@
 import HeaderNavBar from "./components/HeaderNavBar";
 import MainContainer from "./components/MainContainer";
 import FooterBar from "./components/FooterBar";
+import LabelComp from "./components/LabelComp.vue";
 export default {
   name: "App",
   components: {
     HeaderNavBar,
+    LabelComp,
     MainContainer,
     FooterBar,
   },

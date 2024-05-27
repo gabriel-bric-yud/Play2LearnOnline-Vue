@@ -207,6 +207,10 @@ export default {
 };
 </script>
 <style scoped>
+#game-container {
+  width: 380px;
+}
+
 button.number-button {
   border-radius: 0.25em;
   font-size: 3em;

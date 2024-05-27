@@ -17,6 +17,9 @@
       :options="numbers"
       @input="(m) => (this.maxNumber = m)"
     />
+    <ol>
+      <li v-for="line in description" :key = "line[0]">{{line[1]}}</li>
+    </ol>
     <PlayButton @play-button-click="play" />
   </div>
 </template>
@@ -40,12 +43,13 @@ export default {
       ],
       operation: 'x',
       maxNumber: '10',
+      description: [[0, "Choose Operation."], [1, "Choose Max Number."], [2, "Press Go."], [4, "How many problems can you solve in 30 seconds?"]]
     };
   },
   methods: {
     play() {
       this.$router.push(
-        '/play/' + encodeURIComponent(this.operation) + '/' + this.maxNumber
+        '/MathFactsGame/' + encodeURIComponent(this.operation) + '/' + this.maxNumber
       );
     },
   },
