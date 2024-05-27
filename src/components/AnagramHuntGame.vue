@@ -1,7 +1,7 @@
 <template>
   <div id = "game-container" class = "d-grid border-info">
     <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
-    <transition name="slide">
+    <Transition name="fade">
       <template v-if="timeLeft === 0 || this.gameEnd">
         <div class = "d-grid justify-content-center endscreen">
           <h2 v-if="timeLeft === 0" class = "text-center">Time's Up!</h2>
@@ -32,8 +32,8 @@
           </div>
         </div>
       </template>
-    </transition>
-    <transition name="slide">
+    </Transition>
+    <Transition name = "fade">
       <template v-if="timeLeft > 0">
         <div class = "border-info">
           
@@ -54,7 +54,8 @@
           </div>
 
           <div className = "row justify-content-center m-2">
-            <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "currentAnswer">
+            <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "currentAnswer" 
+              @input="this.touchSupport()">
           </div>
 
           <div className = "d-grid justify-content-left">
@@ -65,7 +66,7 @@
         </div>
         
       </template>
-    </transition>
+    </Transition>
   </div>
 </template>
 
@@ -240,7 +241,7 @@ export default {
       },
       answered: false,
       score: 0,
-      gameLength: 2,
+      gameLength: 60,
       timeLeft: -1,
       word: "",
       availableIndexes: [],
@@ -289,7 +290,7 @@ export default {
         if (elem.toUpperCase() == this.currentAnswer.toUpperCase()) {
           this.score++
           this.answered = true;
-          this.answerList.push(this.currentAnswer);
+          this.answerList.push(elem);
           this.currentList.splice(this.currentList.indexOf(elem), 1);
 
           this.currentAnswer = "";
@@ -343,6 +344,11 @@ export default {
       }
 
     },
+    touchSupport() {
+      if (navigator.maxTouchPoints > 0) { 
+        this.checkAnswer() 
+      }
+    }
   },
 
   mounted() {
@@ -362,7 +368,9 @@ export default {
 <style scoped>
 #game-container, .endscreen {
   width: 380px;
+  max-width: 98vw;
 }
+
 
 #scoreboard {
   font-size: 1.5em;
@@ -376,39 +384,13 @@ export default {
   font-size: 5em;
 }
 
-.slide-leave-active,
-.slide-enter-active {
-  position: absolute;
-  top: 190px;
-  transition: 1s;
-  width: 380px;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.slide-enter-from {
-  transform: translate(-100%, 0);
-  transition: opacity 0.5s;
-}
-
-.slide-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: translate(100%, 0);
-}
-
-.slide-right-leave-active,
-.slide-right-enter-active {
-  position: absolute;
-  top: 190px;
-  transition: 1s;
-  width: 380px;
-}
-
-.slide-right-enter-from {
-  transform: translate(100%, 0);
-  transition: opacity 0.5s;
-}
-
-.slide-right-leave-to {
-  opacity: 0;
-  transform: translate(-100%, 0);
 }
 </style>

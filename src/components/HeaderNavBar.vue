@@ -16,7 +16,7 @@
           </li>
         </ul>
       </div>
-      <a class="navbar-brand" href="/">Final Project Vue - JavaScript Developer (ed2go)</a>
+      <a class="navbar-brand" href="/">Final Project Vue - JavaScript Developer</a>
     </nav>
   </header>
 </template>
