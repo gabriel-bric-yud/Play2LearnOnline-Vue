@@ -1,34 +1,63 @@
 <template>
-   <div className = "game-container d-grid justify-content-center">
-      <div class="row border-bottom" id="scoreboard">
-        <div class="col px-3 text-left">
-          <GameScore :score="score" />
+  <div id = "game-container" class = "game-container d-grid ">
+    <transition name="slide">
+      <template v-if="timeLeft === 0 || this.gameEnd">
+        <div id = "game-container" class = "d-grid justify-content-center">
+          <h2 v-if="timeLeft === 0" class = "text-center">Time's Up!</h2>
+          <h2 v-else class = "text-center">Anagrams Completed!</h2>
+          <strong class="big text-center">You got</strong>
+          <div class="huge text-center">{{ score }}</div>
+          <strong class="big text-center">Anagrams</strong>
+          <button
+            class="btn btn-primary form-control m-1"
+            v-on:click="restart()"
+          >
+            Play Again with Same Settings
+          </button>
+          <button
+            class="btn btn-secondary form-control m-1"
+            v-on:click="config()"
+          >
+            Change Settings
+          </button>
         </div>
-        <div class="col px-3 text-right">
-          <GameTimer :timeLeft="timeLeft" />
+      </template>
+    </transition>
+    <transition name="slide-right">
+      <template v-if="timeLeft > 0">
+        <div>
+      
+          <div class="row border-bottom d-flex" id="scoreboard">
+            <div class="col">
+              <GameScore :score="score" />
+            </div>
+            <div class="col d-grid justify-content-end">
+              <GameTimer :timeLeft="timeLeft" />
+            </div>
+          </div>
+
+          <div className = "row justify-content-center">
+            <div class = 'd-grid align-items-center'>
+              <LabelComp :text = "word" fontSize = "3rem" />
+              <LabelComp  fontSize = "1.5rem" />
+            </div>
+          </div>
+
+          <div className = "row justify-content-center m-2">
+            <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "currentAnswer">
+          </div>
+
+          <div className = "d-grid justify-content-left">
+            <ol className = "text-center">
+              <li v-for="answer of answerList" :key = "answer">{{ answer }}</li>
+            </ol>
+          </div>
         </div>
-      </div>
-
-      <div className = "row justify-content-center">
-        <div class = 'd-grid align-items-center'>
-          <LabelComp :text = "word" fontSize = "3rem" />
-          <LabelComp  fontSize = "1.5rem" />
-        </div>
-      </div>
-
-      <div className = "row justify-content-center m-2">
-        <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "currentAnswer">
-      </div>
-
-      <div className = "d-grid justify-content-left">
-        <ol className = "text-center">
-          <li v-for="answer of answerList" :key = "answer">{{ answer }}</li>
-        </ol>
-      </div>
-    </div>
-
+        
+      </template>
+    </transition>
+  </div>
 </template>
-
 
 
 <script>
@@ -197,10 +226,9 @@ export default {
           ]
         ]
       },
-      input: '',
       answered: false,
       score: 0,
-      gameLength: 60,
+      gameLength: 30,
       timeLeft: 0,
       word: "",
       availableIndexes: [],
@@ -208,14 +236,17 @@ export default {
       currentList: [],
       currentAnswer: "",
       answerList: [],
+      gameEnd: false,
     };
   },
+
   props: {
     wordlength: String,
   },
+
   methods: {
     config() {
-      this.$router.push('/');
+      this.$router.push('/AnagramHuntConfig');
     },
 
     setIndexes() {
@@ -238,20 +269,13 @@ export default {
     
     checkAnswer() {
       if (this.currentAnswer.length == 0 || this.currentAnswer == this.word) return false; // User hasn't answered
-      console.log(this.currentAnswer)
       for (const elem of this.currentList) {
         if (elem.toUpperCase() == this.currentAnswer.toUpperCase()) {
-          console.log(this.currentList)
-          console.log(this.word)
-          console.log(this.availableIndexes)
-          console.log(this.currentAnswer)
-          console.log(this.answerList)
-          console.log(elem)
+          this.score++
           this.answered = true;
           this.answerList.push(this.currentAnswer);
-          console.log(this.answerList)
           this.currentList.splice(this.currentList.indexOf(elem), 1);
-          console.log(this.currentList)
+
           this.currentAnswer = "";
         }
       }
@@ -262,17 +286,18 @@ export default {
     },
 
     newQuestion() {
-      this.currentAnagramData = this.chooseAnagramList()
-      this.currentList = this.currentAnagramData.list;
-      console.log(this.currentAnagramData)
-      this.availableIndexes.splice(this.currentAnagramData.index, 1)
-      console.log(this.currentList)
-      this.word = this.chooseWord();
-      console.log(this.word)
-      this.answer = "";
-      this.answered = false;
-      console.log(`Available indexes are: ${this.availableIndexes}`)
-
+      if (this.availableIndexes.length != 0) {
+        this.currentAnagramData = this.chooseAnagramList()
+        this.currentList = this.currentAnagramData.list;
+        this.availableIndexes.splice(this.currentAnagramData.index, 1)
+        this.word = this.chooseWord();
+        this.answer = "";
+        this.answered = false;
+      }
+      else {
+        this.timeLeft = -1;
+        this.gameEnd = true;
+      }
     },
 
     startTimer() {
@@ -291,28 +316,25 @@ export default {
     restart() {
       this.score = 0;
       this.startTimer();
+      this.availableIndexes = this.setIndexes();
       this.newQuestion();
-      //this.availableIndexes = this.setIndexes();
-      //this.currentAnagramData = chooseAnagramList()
-      //this.currentList = this.currentAnagramData.list;
-      //this.word = this.chooseWord();
+
     },
     handleKeyUp(e) {
-      e.preventDefault(); // prevent the normal behavior of the key
+      e.preventDefault();
       if (e.keyCode === 13) {
-        // space/Enter
         this.checkAnswer();
       }
 
     },
   },
+
   mounted() {
-    //this.availableIndexes = this.indexes;
-    //this.newQuestion();
     this.startTimer();
     this.availableIndexes = this.setIndexes();
     this.newQuestion();
   },
+
   computed: {
     samesizeAnagrams: function() {
       return this.anagrams[this.wordlength];

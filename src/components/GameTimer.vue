@@ -1,5 +1,5 @@
 <template>
-  <strong>Time Left: {{timeLeft}}</strong>
+  <strong>Time: {{timeLeft}}</strong>
 </template>
 
 <script>
