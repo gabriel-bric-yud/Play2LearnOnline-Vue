@@ -17,11 +17,12 @@
       </div>
 
       <div className = "row justify-content-center m-2">
-        <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "answer">
+        <input type = "text" class = "form-control w-75" placeholder = "type here" v-model = "currentAnswer">
       </div>
 
       <div className = "d-grid justify-content-left">
         <ol className = "text-center">
+          <li v-for="answer of answerList" :key = "answer">{{ answer }}</li>
         </ol>
       </div>
     </div>
@@ -44,16 +45,6 @@ export default {
   },
   data: function () {
     return {
-      input: '',
-      answered: false,
-      score: 0,
-      gameLength: 60,
-      timeLeft: 0,
-      word: "",
-      availableIndexes: [],
-      currentList: [],
-      currentAnswer: "",
-      answers: [],
       anagrams: {
         5 : [
           [
@@ -205,7 +196,18 @@ export default {
             "trounces"
           ]
         ]
-      }
+      },
+      input: '',
+      answered: false,
+      score: 0,
+      gameLength: 60,
+      timeLeft: 0,
+      word: "",
+      availableIndexes: [],
+      currentAnagramData: {},
+      currentList: [],
+      currentAnswer: "",
+      answerList: [],
     };
   },
   props: {
@@ -220,50 +222,57 @@ export default {
       let currentIndexes = []
       for (let i = 0; i < this.samesizeAnagrams.length; i++) {
         currentIndexes.push(i)
-        console.log(i)
       }
       return currentIndexes
     },
 
     chooseAnagramList() {
       const randIndex = Math.floor(Math.random() * this.availableIndexes.length)
-      this.availableIndexes.slice(randIndex, 1)
-      return this.samesizeAnagrams[randIndex]
+      return {list: this.samesizeAnagrams[this.availableIndexes[randIndex]], index: randIndex}
     },
 
     chooseWord() {
       const randIndex = Math.floor(Math.random() * this.currentList.length)
       return this.currentList[randIndex]
     },
-
-    clear() {
-      this.input = '';
-    },
     
-    checkAnswer(userAnswer, operation, operands) {
-      if (isNaN(userAnswer)) return false; // User hasn't answered
-
-      let correctAnswer;
-      switch (operation) {
-        case '+':
-          correctAnswer = operands.num1 + operands.num2;
-          break;
-        case '-':
-          correctAnswer = operands.num1 - operands.num2;
-          break;
-        case 'x':
-          correctAnswer = operands.num1 * operands.num2;
-          break;
-        default: // division
-          correctAnswer = operands.num1 / operands.num2;
+    checkAnswer() {
+      if (this.currentAnswer.length == 0 || this.currentAnswer == this.word) return false; // User hasn't answered
+      console.log(this.currentAnswer)
+      for (const elem of this.currentList) {
+        if (elem.toUpperCase() == this.currentAnswer.toUpperCase()) {
+          console.log(this.currentList)
+          console.log(this.word)
+          console.log(this.availableIndexes)
+          console.log(this.currentAnswer)
+          console.log(this.answerList)
+          console.log(elem)
+          this.answered = true;
+          this.answerList.push(this.currentAnswer);
+          console.log(this.answerList)
+          this.currentList.splice(this.currentList.indexOf(elem), 1);
+          console.log(this.currentList)
+          this.currentAnswer = "";
+        }
       }
-      return parseInt(userAnswer) === correctAnswer;
+
+      if (this.currentList.length == 1) {
+        this.newQuestion();
+      }
     },
+
     newQuestion() {
-      this.currentList = this.chooseAnagramList();
+      this.currentAnagramData = this.chooseAnagramList()
+      this.currentList = this.currentAnagramData.list;
+      console.log(this.currentAnagramData)
+      this.availableIndexes.splice(this.currentAnagramData.index, 1)
+      console.log(this.currentList)
       this.word = this.chooseWord();
-      this.input = '';
+      console.log(this.word)
+      this.answer = "";
       this.answered = false;
+      console.log(`Available indexes are: ${this.availableIndexes}`)
+
     },
 
     startTimer() {
@@ -282,15 +291,17 @@ export default {
     restart() {
       this.score = 0;
       this.startTimer();
-      this.availableIndexes = this.setIndexes();
-      this.currentList = this.chooseAnagramList();
-      this.word = this.chooseWord();
+      this.newQuestion();
+      //this.availableIndexes = this.setIndexes();
+      //this.currentAnagramData = chooseAnagramList()
+      //this.currentList = this.currentAnagramData.list;
+      //this.word = this.chooseWord();
     },
     handleKeyUp(e) {
       e.preventDefault(); // prevent the normal behavior of the key
       if (e.keyCode === 13) {
         // space/Enter
-        this.clear();
+        this.checkAnswer();
       }
 
     },
@@ -300,8 +311,7 @@ export default {
     //this.newQuestion();
     this.startTimer();
     this.availableIndexes = this.setIndexes();
-    this.currentList = this.chooseAnagramList();
-    this.word = this.chooseWord();
+    this.newQuestion();
   },
   computed: {
     samesizeAnagrams: function() {
