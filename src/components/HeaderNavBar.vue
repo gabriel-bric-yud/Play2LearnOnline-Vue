@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark container-fluid bg-primary">
       <button
         class="navbar-toggler"
         type="button"

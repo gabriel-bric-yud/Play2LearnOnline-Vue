@@ -10,7 +10,7 @@
           <div class="huge text-center">{{ score }}</div>
           <strong class="big text-center">Anagrams</strong>
           <button
-            class="btn btn-primary form-control m-1 w-75 mx-auto"
+            class="btn btn-success form-control m-1 w-75 mx-auto"
             v-on:click="restart()"
           >
             Play Again
@@ -18,7 +18,7 @@
           <div class = "d-flex flex-fill justify-content-center">
             <button
               class="btn btn-secondary form-control m-1 w-50"
-              v-on:click="config()"
+              v-on:click="changeSettings()"
             >
               Change Settings
             </button>
@@ -239,7 +239,7 @@ export default {
       },
       answered: false,
       score: 0,
-      gameLength: 2,
+      gameLength: 60,
       timeLeft: -1,
       word: "",
       availableIndexes: [],
@@ -257,6 +257,10 @@ export default {
 
   methods: {
     config() {
+      this.$router.push('/');
+    },
+
+    changeSettings() {
       this.$router.push('/AnagramHuntConfig');
     },
 

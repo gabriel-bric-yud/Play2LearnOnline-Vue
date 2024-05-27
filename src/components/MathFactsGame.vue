@@ -1,6 +1,7 @@
 <template>
   <div id="game-container" class="text-center">
     <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
+    <LabelComp :text = "this.operationName" fontSize = "2rem" />
     <transition name="slide">
       <template v-if="timeLeft === 0">
         <div>
@@ -9,17 +10,25 @@
           <div class="huge">{{ score }}</div>
           <strong class="big">Questions Correctly</strong>
           <button
-            class="btn btn-primary form-control m-1"
+            class="btn btn-success form-control m-1 w-75 mx-auto"
             v-on:click="restart()"
           >
-            Play Again with Same Settings
+            Play Again
           </button>
-          <button
-            class="btn btn-secondary form-control m-1"
-            v-on:click="config()"
-          >
-            Change Settings
-          </button>
+          <div class = "d-flex flex-fill justify-content-center">
+            <button
+              class="btn btn-secondary form-control m-1 w-50"
+              v-on:click="changeSettings()"
+            >
+              Change Settings
+            </button>
+            <button
+              class="btn btn-secondary form-control m-1 w-50 justify-self-end"
+              v-on:click="config()"
+            >
+              Change Game
+            </button>
+          </div>
         </div>
       </template>
     </transition>
@@ -67,14 +76,16 @@ import GameScore from './GameScore';
 import GameTimer from './GameTimer';
 import GameEquation from './GameEquation';
 import GameHeader from './GameHeader.vue';
+import LabelComp from './LabelComp.vue';
 import { randInt } from '../helpers/helpers';
 export default {
-  name: 'GamePlay',
+  name: 'MathFactsGame',
   components: {
     GameScore,
     GameTimer,
     GameEquation,
-    GameHeader
+    GameHeader,
+    LabelComp
   },
   data: function () {
     return {
@@ -83,8 +94,8 @@ export default {
       operands: { num1: '1', num2: '1' },
       answered: false,
       score: 0,
-      gameLength: 60,
-      timeLeft: 0,
+      gameLength: 30,
+      timeLeft: -1,
     };
   },
   props: {
@@ -94,6 +105,10 @@ export default {
   methods: {
     config() {
       this.$router.push('/');
+    },
+
+    changeSettings() {
+      this.$router.push('/MathFactsConfig');
     },
 
     setInput(value) {
@@ -206,6 +221,24 @@ export default {
         return 'row text-secondary my-2';
       }
     },
+    operationName: function () {
+      let opp
+      switch(this.operation) {
+        case "+":
+          opp = "ADDITION";
+          break;
+        case "/":
+          opp = "DIVISION";
+          break;
+        case "-":
+          opp = "SUBTRACTION";
+          break;
+        default:
+          opp = "MULTIPLICATION" 
+          break;
+      }
+      return opp
+    }
   },
 };
 </script>
@@ -215,21 +248,23 @@ export default {
 }
 
 button.number-button {
-  border-radius: 0.25em;
-  font-size: 3em;
-  height: 2em;
-  margin: 0.1em;
+  border-radius: .25em;
+  font-size: 2em;
+  padding: 0px;
+  height: 50px;
+  margin: .1em;
   text-align: center;
-  width: 2em;
+  width: 100px;
 }
 
 #clear-button {
-  border-radius: 0.25em;
-  font-size: 3em;
-  height: 2em;
-  margin: 0.1em;
+  border-radius: .25em;
+  font-size: 2em;
+  padding: 0px;
+  height: 50px;
+  margin: .1em;
   text-align: center;
-  width: 4.2em;
+  width: 200px;
 }
 
 #scoreboard {
@@ -247,7 +282,7 @@ button.number-button {
 .slide-leave-active,
 .slide-enter-active {
   position: absolute;
-  top: 190px;
+  top: 253px;
   transition: 1s;
   width: 380px;
 }
@@ -265,7 +300,7 @@ button.number-button {
 .slide-right-leave-active,
 .slide-right-enter-active {
   position: absolute;
-  top: 190px;
+  top: 253px;
   transition: 1s;
   width: 380px;
 }

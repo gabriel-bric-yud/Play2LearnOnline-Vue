@@ -31,4 +31,15 @@ header {
 #app {
   overflow-x: hidden;
 }
+
+.btn-success {
+  background-color: #28a745!important;
+  border: none !important;
+}
+
+.form-control {
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  min-height: 2.4rem !important;
+}
 </style>

@@ -27,7 +27,7 @@
 <script>
 import SelectInput from './SelectInput';
 import PlayButton from './PlayButton';
-import GameHeader from './GameHeader.vue';
+import GameHeader from './GameHeader';
 
 export default {
   name: 'GameConfig',

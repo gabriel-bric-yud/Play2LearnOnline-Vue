@@ -1,6 +1,6 @@
 <template>
   
-  <div class = "gamecard border border-info m-1 d-grid card flex-fill">
+  <div class = "gamecard border border-info m-1 d-grid card flex-fill p-1">
       <LabelComp :text = title :fontSize = fontSize />
       <p v-for="line in description" :key = "line[0]">{{line[1]}}</p>
       <div class = "card-footer align-self-end mt-2 d-grid">
