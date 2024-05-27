@@ -1,5 +1,5 @@
 <template>
-  <div id = "game-container" class = "d-grid">
+  <div id = "game-container" class = "d-grid border-info">
     <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
     <transition name="slide">
       <template v-if="timeLeft === 0 || this.gameEnd">
@@ -9,8 +9,9 @@
           <strong class="big text-center mx-0">You got</strong>
           <div class="huge text-center">{{ score }}</div>
           <strong class="big text-center">Anagrams</strong>
+
           <button
-            class="btn btn-success form-control m-1 w-75 mx-auto"
+            class="btn btn-success form-control my-1 w-75 mx-auto justify-self-center"
             v-on:click="restart()"
           >
             Play Again
@@ -34,7 +35,7 @@
     </transition>
     <transition name="slide">
       <template v-if="timeLeft > 0">
-        <div>
+        <div class = "border-info">
           
           <div class="row border-bottom d-flex" id="scoreboard">
             <div class="col">
@@ -239,7 +240,7 @@ export default {
       },
       answered: false,
       score: 0,
-      gameLength: 60,
+      gameLength: 2,
       timeLeft: -1,
       word: "",
       availableIndexes: [],

@@ -37,6 +37,16 @@ header {
   border: none !important;
 }
 
+.card-footer {
+  background-color: rgba(0, 0, 0, .03) !important;
+  border-top: 1px solid rgba(0, 0, 0, .125) !important;
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, .03) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .125) !important;
+}
+
 .form-control {
   appearance: auto !important;
   -webkit-appearance: auto !important;

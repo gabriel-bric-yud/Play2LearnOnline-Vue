@@ -1,5 +1,5 @@
 <template>
-  <div id="config-container">
+  <div id="config-container" class = "border-info">
     <GameHeader text = "Math Facts Practice" fontSize = "2.5rem" />
     <SelectInput
       :currentValue="operation"

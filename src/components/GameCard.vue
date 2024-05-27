@@ -1,9 +1,9 @@
 <template>
   
-  <div class = "gamecard border border-info m-1 d-grid card flex-fill p-1">
+  <div class = "gamecard border border-info m-1 d-grid card">
       <LabelComp :text = title :fontSize = fontSize />
-      <p v-for="line in description" :key = "line[0]">{{line[1]}}</p>
-      <div class = "card-footer align-self-end mt-2 d-grid">
+      <p v-for="line in description" :key = "line[0]" class = "p-1">{{line[1]}}</p>
+      <div class = "card-footer align-self-end mt-2 d-grid mx-0">
         <button class = "btn btn-success mx-0" @click = play() >Play now!</button>
       </div>
   </div>

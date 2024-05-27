@@ -1,6 +1,6 @@
 <template>
   <div id="game-container" class="text-center">
-    <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
+    <GameHeader text = "Math Facts Practice" fontSize = "2.5rem" />
     <LabelComp :text = "this.operationName" fontSize = "2rem" />
     <transition name="slide">
       <template v-if="timeLeft === 0">
@@ -94,7 +94,7 @@ export default {
       operands: { num1: '1', num2: '1' },
       answered: false,
       score: 0,
-      gameLength: 30,
+      gameLength: 2,
       timeLeft: -1,
     };
   },

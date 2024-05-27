@@ -1,5 +1,5 @@
 <template>
-  <div id="config-container">
+  <div id="config-container" class = "border-info card">
     <GameHeader text = "Anagram Hunt" fontSize = "2.5rem" />
     <SelectInput
       :currentValue= "wordlength"

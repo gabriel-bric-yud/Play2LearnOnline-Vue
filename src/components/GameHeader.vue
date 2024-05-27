@@ -1,5 +1,5 @@
 <template>
-    <div class = "card-header">
+    <div class = " mx-0 ">
       <LabelComp :text = "this.text" :fontSize = "this.fontSize"></LabelComp>
     </div>
 </template>
