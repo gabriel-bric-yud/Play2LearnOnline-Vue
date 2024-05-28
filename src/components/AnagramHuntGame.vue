@@ -49,7 +49,7 @@
           <div className = "row justify-content-center">
             <div class = 'd-grid align-items-center'>
               <LabelComp :text = "word" fontSize = "3rem" />
-              <LabelComp  fontSize = "1.5rem" />
+              <LabelComp  :text = "remaining" fontSize = "1.5rem" />
             </div>
           </div>
 
@@ -244,8 +244,9 @@ export default {
       gameLength: 60,
       timeLeft: -1,
       word: "",
-      availableIndexes: [],
+      remaining: "( left)",
       currentAnagramData: {},
+      availableIndexes: [],
       currentList: [],
       currentAnswer: "",
       answerList: [],
@@ -292,6 +293,7 @@ export default {
           this.answered = true;
           this.answerList.push(elem);
           this.currentList.splice(this.currentList.indexOf(elem), 1);
+          this.remaining = `(${this.currentList.length - 1 } left)`
 
           this.currentAnswer = "";
         }
@@ -306,6 +308,7 @@ export default {
       if (this.availableIndexes.length != 0) {
         this.currentAnagramData = this.chooseAnagramList()
         this.currentList = this.currentAnagramData.list;
+        this.remaining = `(${this.currentList.length - 1} left)`
         this.availableIndexes.splice(this.currentAnagramData.index, 1)
         this.word = this.chooseWord();
         this.answer = "";
