@@ -18,6 +18,7 @@ export default {
 #main-container {
   margin: auto;
   justify-content: center; 
+  margin-bottom: 100px;
 }
 
 main div {
